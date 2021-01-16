@@ -1,0 +1,52 @@
+@import "/ui/main.wxss";
+@import "/app.wxss";
+
+.order__title{
+  margin-bottom:10rpx;
+}
+.order__price{
+  display: flex;
+  justify-content:space-between;
+  font-size: 33rpx;
+  margin-bottom:29rpx;
+}
+.padding-xl{
+  padding: 30rpx 50rpx;
+}
+.cu-modal.bottom-modal .cu-dialog{
+  border-radius:36rpx 36rpx 0px 0px;
+  overflow: hidden;
+}
+.price-bar .cu-bar{
+  justify-content: flex-end;
+  background-color: #F4F4F4;
+  height: 152rpx;
+  line-height: 152rpx;
+}
+.price-bar .cu-bar .cu-btn{
+  margin-right: 53rpx;
+  height: 65rpx;
+}
+
+.price-bar .order__title{
+  font-size: 36rpx;
+}
+.order__type {
+  text-align: left;
+  margin:40rpx 0;
+}
+.order__type .cu-btn{
+  justify-content: flex-start;
+  margin-right:27rpx;
+}
+.order__number{
+  text-align: right;
+}
+.cu-btn.active{
+  background-color:#D0B07E !important;
+  color:#fff;
+}
+.cu-btn.disable{
+  background-color:#B2B2B2;
+  color:#fff;
+}

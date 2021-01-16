@@ -1,0 +1,76 @@
+/* pages/activity/activity.wxss */
+page{
+  background-color: #fff;
+}
+.activity-list{
+  margin-top: 36rpx;
+}
+.activity__item{
+  margin: 0 0 36rpx 0;
+  font-size: 27rpx;
+  color: #707070;
+  height: 199rpx;
+  position: relative;
+}
+.activity__image{
+  float: left;
+  margin-right: 36rpx;
+}
+.activity__image image{
+  width: 202rpx;
+  height: 202rpx;
+}
+.activity__time{
+  color:#FCA68C;
+  margin-top: 10rpx;
+}
+.activity__text{
+  margin-top: 5rpx;
+}
+.activity__title{
+  height: 38rpx;
+  font-weight: bold;
+}
+.activity__name{
+  font-size: 24rpx;
+  line-height: 1.2;
+  height:58rpx;
+}
+.activity__address{
+  height:58rpx;
+  font-size: 24rpx;
+  line-height: 1.2;
+}
+.i-tab{
+   margin-top:40rpx;
+}
+.cu-btn{
+  height: 53rpx;
+  color: #fff;
+  font-size: 27rpx;
+  width: 147rpx;
+}
+.activity__btns{
+  position: absolute;right:0;bottom:-5px;
+}
+.nav-month{
+  height: 120rpx;
+  line-height: 120rpx;
+}
+.nav-month .cu-item{
+  background:none;
+  color:#707070;
+}
+.nav-month .cu-item.cur{
+  background:none;
+  color:#FCA68C;
+}
+.activity-list2{
+  margin-top: 0rpx;
+}
+.tab-content{
+  padding: 0 20rpx;
+}
+.i-tab2 .tab-t{
+  border-bottom:2rpx solid #e0e0e0;
+}

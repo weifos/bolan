@@ -1,0 +1,94 @@
+<wxs src='../../../modules/wxsGlobal.wxs' module='gFilter' />
+
+<view class="container page-member-orderlist">
+  <!-- i-tab s -->
+  <view class="i-tab">
+    <scroll-view scroll-x class="nav tab-t">
+      <view class="flex text-center">
+        <view class="cu-item flex-sub {{index==tabCur?'bg-lightBlue cur text-white':''}}" wx:for="{{orderData}}" wx:key bindtap="tabSelect" data-id="{{index}}" wx:for-item="item">
+          {{item.title}}
+        </view>
+      </view>
+    </scroll-view>
+    <view class="tab-content">
+      <view class="tab-c" wx:if="{{tabCur == 0}}">
+        <view class="course-list" wx:if="{{orderData[0].list.length >0}}">
+          <view class="course__item" wx:for="{{orderData[0].list}}" wx:key>
+            <view class="course__image" bindtap="goDetails" data-item="{{item}}">
+              <image src="{{item.img_url}}"></image>
+            </view>
+            <view class="course__text">
+              <view class="course__title ellipsis" bindtap="goDetails" data-item="{{item}}">
+                {{item.teacher_name}}——{{item.course_name}}
+              </view>
+              <view class="course__address ellipsis2" bindtap="goDetails" data-item="{{item}}">
+                上课地点：{{item.province}}{{item.city}}{{item.area}}{{item.address}}
+              </view>
+              <view class="course__name ellipsis" wx:if="{{!item.is_pay && item.type_id==5 }}">
+                待支付
+              </view>
+              <view class="course__name ellipsis" wx:if="{{item.is_pay && item.refund_status==0 && item.type_id==5 }}">
+                已支付
+              </view>
+              <view class="course__name ellipsis" wx:if="{{item.is_pay && item.refund_status==2 && item.type_id==5 }}">
+                退款申请中
+              </view>
+              <view class="course__name ellipsis" wx:if="{{item.is_pay && item.refund_status==1 && item.type_id==5 }}">
+                部分退款
+              </view>
+              <view class="course__name ellipsis" wx:if="{{item.is_pay && item.refund_status==10 && item.type_id==5 }}">
+                退款完成
+              </view>
+              <view class="course__time" bindtap="goDetails" data-item="{{item}}">
+                {{item.start_date}}
+              </view>
+              <view class="course__btns">
+                <!-- <button class="cu-btn round bg-white">取消</button> -->
+                <button wx:if="{{item.is_pay || item.type==1}}" class="cu-btn round bg-lightBlue text-white" bindtap="goTicket" data-id="{{item.id}}">查看</button>
+                <button wx:if="{{item.is_pay && item.type==5 && (item.refund_status==0||item.refund_status==1)}}" class="cu-btn round bg-lightBlue text-white" bindtap="refundApply" data-id="{{item.id}}">退款</button>
+                <button wx:if="{{!item.is_pay && item.type==5}}" class="cu-btn round bg-lightBlue text-white" bindtap="goPay" data-item="{{item}}">支付</button>
+                <!-- <button class="cu-btn round bg-gray text-white">取消</button> -->
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:if="{{orderData[0].list.length ==0}}" class="nodata tac">
+          <view>您还没有报名活动哦~</view>
+          <view>快去报名参加吧</view>
+        </view>
+      </view>
+      <view class="tab-c" wx:if="{{tabCur == 1}}">
+        <view class="course-list" wx:if="{{orderData[1].list.length >0}}">
+          <view class="course__item" wx:for="{{orderData[1].list}}" wx:key>
+            <view class="course__image">
+              <image src="{{item.url}}"></image>
+            </view>
+            <view class="course__text">
+              <view class="course__title ellipsis">
+                {{item.title}}
+              </view>
+              <view class="course__name ellipsis">
+                {{item.name}}
+              </view>
+              <view class="course__address ellipsis2">
+                上课地点：{{item.address}}
+              </view>
+              <view class="course__time">
+                {{item.time}}
+              </view>
+              <view class="course__btns">
+                <button class="cu-btn round bg-lightBlue text-white">查看</button>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:if="{{orderData[1].list.length ==0}}" class="nodata tac">
+          <view>您还没有报名活动哦~</view>
+          <view>快去报名参加吧</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- i-tab e -->
+</view>
+<i-bottombar index="-1"></i-bottombar>

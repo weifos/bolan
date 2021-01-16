@@ -1,0 +1,57 @@
+/* component/BottomBar.wxss */
+@import "/ui/main.wxss";
+@import "/ui/icon.wxss";
+
+.cu-bar.tabbar .action .cuIcon-cu-image-1 image{
+  width: 52rpx;
+  height: 59rpx;
+}
+.cu-bar.tabbar .action .cuIcon-cu-image-2 image{
+  width: 49rpx;
+  height: 57rpx;
+}
+.cu-bar.tabbar .action .cuIcon-cu-image-3 image{
+  width: 49rpx;
+  height: 57rpx;
+}
+.cu-bar.tabbar .action .cuIcon-cu-image-4 image{
+  width: 64rpx;
+  height: 65rpx;
+}
+.cu-bar.tabbar .action .cuIcon-cu-image-user{
+  overflow: hidden;
+  border-radius: 100%
+}
+.cu-bar.tabbar .action .cuIcon-cu-image-user image{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 100%
+}
+
+
+.cu-bar{
+  min-height: 141rpx;
+
+}
+.cu-bar.tabbar{
+  position: fixed;
+  bottom:0;
+  width: 100%;
+  left:0;
+}
+.cuIcon-cu-image .cur-img,.cuIcon-cu-image.cur .normal-img{
+  display: none;
+}
+.cuIcon-cu-image .normal-img,.cuIcon-cu-image.cur .cur-img{
+  display: inline-block;
+}
+.nav-text{
+  font-size:24rpx;
+  margin-top:5rpx;
+}
+.cur .nav-text{
+  color:#95b9fc;
+}
+.cuIcon-cu-image-3.cur .nav-text{
+  color:#FCA68C;
+}

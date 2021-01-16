@@ -1,0 +1,52 @@
+<wxs src='../../modules/wxsGlobal.wxs' module='gFilter' />
+
+<view class=" page-sale">
+  <i-greetings></i-greetings>
+  <view class="swiper-banner">
+    <i-swiper itemData="{{banners}}"></i-swiper>
+  </view>
+  <!-- sale-list s-->
+  <view class="sale-list">
+    <view class="tab-t">
+      <view class="tab-t__item {{index == curIndex ? 'cur' : ''}}" data-id="{{item.id}}" bindtap="selectCatg" wx:for="{{result}}" wx:key="key">
+        {{item.name}}
+      </view>
+    </view>
+    <!-- tab-c s -->
+    <view class="tab-c">
+      <scroll-view bindscroll="productScroll" scroll-y="true" class="tab-c__wrap">
+        <!-- <view class="txt-todayRecommend">今日推荐咖啡：冰咖啡</view> -->
+        <view class="tab-c__item" wx:for="{{result[curIndex].list}}" wx:for-item="item" wx:key="key">
+          <view class="item-img">
+            <image src="{{item.img_url}}"></image>
+          </view>
+          <view class="item-txt">
+            <view class="item-name">
+              {{item.name}}
+            </view>
+            <view class="item-star">
+              <i-star number="{{item.star}}"></i-star>
+            </view>
+            <view class="item-price">
+              <text>￥</text>{{item.sale_price}}
+            </view>
+            <view class="item-btns">
+              <button class="cu-btn round bg-lightYellow text-white" data-item="{{item}}" bindtap="showModal" data-target="bottomModal">选规格</button>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <!-- tab-c e -->
+  </view>
+  <!-- sale-list e -->
+</view>
+<!-- 底部 s -->
+<view class="order-tool-bar">
+  <view class="cu-bar tabbar">
+    <view class="bg-darkGray info">待支付￥{{gFilter.formaToMoney(totalPrice)}}</view>
+    <view class="bg-lightYellow submit text-white" bindtap="goUrl">提交订单</view>
+  </view>
+</view>
+<!-- 底部 e -->
+<i-sku isShow="{{isSelectSKU}}" result="{{productDetails}}" type="{{false}}"  storeId="{{store_id}}" bind:updateSCart="updateSCart"></i-sku>

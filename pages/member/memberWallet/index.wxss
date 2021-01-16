@@ -1,0 +1,85 @@
+/* pages/member/memberWallet/index.wxss */
+page{
+  background: #fff;
+}
+.cur{
+  border: 2rpx solid red;
+}
+.sec-wallet{
+  padding:60rpx 0;
+}
+.value-bar{
+   margin:20rpx 0 40rpx 0; 
+}
+.value-bar .value{
+  font-size: 82rpx;
+  margin-left:24rpx;
+}
+.sec-wallet .cu-btn{
+  margin:0 40rpx;
+  width: 205rpx;
+  height: 58rpx;
+}
+.sec-recharge{
+  background: #F4F4F4;
+  padding-top:30rpx; 
+}
+.sec-recharge .bg-wrap{
+  background:#fff;
+  overflow: hidden;
+  border-radius:36rpx 36rpx 0px 0px;
+  height: 500px;
+}
+.i-tab{
+  padding: 0;
+}
+.list-4 .f-item { 
+border: 2rpx solid #9BBAFF;
+border-radius: 36rpx;
+background: #fff;
+color: #9BBAFF;
+margin: 0 29rpx 29rpx 0;
+display: inline-block;
+width: 201rpx;
+
+}
+
+.f-wrap{
+  margin: 0 24rpx;
+}
+.list-4{
+  padding: 60rpx 43rpx 10rpx 43rpx;
+}
+.sec-recharge .cu-btn{
+  width:205rpx;
+  height:58rpx;
+}
+.other-price-view{
+  padding: 0 43rpx 60rpx 43rpx;
+  font-size: 28rpx;
+}
+.other-price-view .input-other{
+  border:2rpx solid #9BBAFF;
+  height: 70rpx;
+  line-height: 70rpx;
+  padding: 0 20rpx;
+  width: 400rpx;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 40rpx;
+  margin-right:10rpx;
+  font-size: 24rpx;
+}
+.placeholder{
+  color: #ddd;
+}
+
+.select_placeholder { 
+  height: 110rpx;
+  line-height: 70rpx;
+  padding: 20rpx 42rpx 10rpx 42rpx;
+  width: 400rpx; 
+  vertical-align: middle; 
+  margin-right:10rpx;
+  font-size: 24rpx;
+}

@@ -1,0 +1,35 @@
+<!--pages/member/ticketDetail/index.wxml-->
+<view class="page-ticket-detail">
+  <view class="ticket-info-bar bg-white" >
+    <view>
+      有效期：{{ticketInfo.expiry_sdate + "至" + ticketInfo.expiry_edate}}
+    </view>
+    <view>
+      使用条件：{{"满"+ticketInfo.full_amount+"元使用"}}
+    </view>
+    <view>
+      可用门店：{{ticketInfo.store_name == ""?"不限":ticketInfo.store_name}}
+    </view>
+    <!-- <view>
+      参与商品：{{ticketInfo.use_pdt_module}}
+    </view> -->
+    <view>
+      <!-- 使用范围：{{ticketInfo.use_module}} -->
+      适用范围：{{ticketInfo.intro}}
+    </view>
+  </view>
+  <view class="ticket-image-bar tac bg-white">
+    <view class="ticket-no fz27">
+      {{ticketInfo.no}}
+    </view>
+    <view>
+      <canvas canvas-id="barcode" style="height:50px; margin-left:auto; margin-right:auto; text-algin:center;"></canvas>
+    </view>
+    <view class="ticket-image-ewm">
+      <canvas class="canvas-code" canvas-id="ticketQrcode" style="background:#fff;width: 180px;height: 180px;margin:0 auto;" />
+    </view>
+    <view class="ticket-btns">
+      <button class="cu-btn bg-lightBlue text-white round" bindtap="goUrl" >前往我的会员</button>
+    </view>
+  </view>
+</view>

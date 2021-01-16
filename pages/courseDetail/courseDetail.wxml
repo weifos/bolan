@@ -1,0 +1,61 @@
+<wxs src='../../modules/wxsGlobal.wxs' module='gFilter' />
+<import src="../../modules/wxParse/wxParse.wxml" />
+
+<view class="container page-courseDetail">
+  <view class="course-img">
+    <image src="{{imgurl}}" />
+  </view>
+  <view class="course-intro">
+    <view class="course__title">{{result.name}}</view>
+    <view class="course__time">时间：{{result.start_date}} 到 {{result.end_date}}
+    </view>
+    <view class="course__address">地点：{{result.province}}{{result.city}}{{result.county}}{{result.address}}</view>
+    <view class="course__price">价格：￥{{gFilter.formaToMoney(result.sale_price)}}</view>
+  </view>
+  <view class="course-detail">
+    <template is="wxParse" data="{{wxParseData:details.nodes}}"   />
+  </view>
+</view>
+<view class="tool-bar tac" wx:if="{{!isOverdue}}">
+  <button class="cu-btn round bg-gray text-white" open-type="contact">客服</button>
+  <button wx:if="{{result.type==5}}" class="cu-btn round bg-lightBlue text-white" bindtap="showModal" data-target="bottomModal">购买</button>
+  <button wx:if="{{result.type==1}}" class="cu-btn round bg-lightBlue text-white" bindtap="api_326">报名</button>
+</view>
+<!-- 弹出层 s-->
+<view class="price-bar">
+  <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+    <view class="cu-dialog">
+      <view class="padding-xl">
+        <view class="order__title tac">
+          {{result.title}}
+        </view>
+        <view class="order__text tac">
+          - 详情 -
+        </view>
+        <view class="order__price">
+          <view class="t-desc">剩余名额</view>
+          <view class="t-detail" style="color:red;">{{result.up_limit - reg_num}}</view>
+        </view>
+        <view class="order__number">
+          <view class="t-desc">报名人数</view>
+          <view class="t-detail">
+            <view class="van-stepper custom-class">
+              <view class="minus-class dib vam" bindtap="sub">-</view>
+              <input class="input-class dib vam" value="{{num}}" bindinput="onInput" />
+              <view class="plus-class dib vam" bindtap="add">+</view>
+            </view>
+          </view>
+        </view>
+        <view class="order__price">
+          <view class="t-desc">报名金额</view>
+          <view class="t-detail text-lightBlue">￥{{gFilter.formaToMoney(totalPrice)}}</view>
+        </view>
+      </view>
+      <view class="cu-bar">
+        <button class="cu-btn round bg-gray text-white" bindtap="hideModal">取消</button>
+        <button class="cu-btn round {{num > (result.up_limit - reg_num) ? 'bg-gray' : 'bg-lightBlue'}} text-white" bindtap="api_326">确认提交</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 弹出层 e-->

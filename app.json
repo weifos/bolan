@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/chat/index",
+    "pages/sale/index",
+    "pages/psq/index",
+    "pages/orderCheck/index",
+    "pages/shoppingCart/index",
+    "pages/courseDetail/courseDetail",
+    "pages/course/course",
+    "pages/logs/logs",
+    "pages/coffee/coffee",
+    "pages/activity/activity"
+  ],
+  "subpackages": [
+    {
+      "root": "pages/member/",
+      "name": "member",
+      "pages": [
+        "ticketDetail/index",
+        "memberPayCode/index",
+        "index/index",
+        "memberWallet/index",
+        "ticketList/index",
+        "consumeList/index",
+        "ticketBind/index",
+        "memberIntegral/index",
+        "memberTicket/index",
+        "orderCourseList/index",
+        "orderList/index",
+        "memberCard/index",
+        "phone/index",
+        "userInfo/index"
+      ]
+    }
+  ],
+  "usingComponents": {
+    "i-bottombar": "/components/BottomBar/BottomBar",
+    "i-swiper": "/components/Swiper/Swiper",
+    "i-greetings": "/components/Greetings/Greetings",
+    "i-ticket": "/components/Ticket/index",
+    "i-nodata": "/components/NoData/index",
+    "i-star": "/components/Star/index",
+    "i-icon": "/components/Icon/index",
+    "i-sku": "/components/SKU/SKU",
+    "i-select": "/components/Select/index"
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "十点书店",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}
