@@ -30,7 +30,7 @@
   <!-- login e -->
   <!-- unlogin s -->
   <view class="member-head unlogin" wx:if="{{!isLogin}}">
-    <view class="head__text">欢迎使用十点书店+</view>
+    <view class="head__text">欢迎使用博览书店+</view>
     <view class="head__btns">
       <button class="cu-btn round bg-lightBlue text-white">立即登录 / 注册</button>
     </view>

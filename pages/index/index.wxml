@@ -15,21 +15,21 @@
         <text class="menu__title__cn">咖啡点单</text>
         <text class="menu__title__en">Coffee order</text>
       </view>
-      <image src="../../images/p2.png"></image>
+      <image src="{{banners1.imgurl}}"></image>
     </view>
     <view class="menu__item" data-key="course" bindtap="goUrl">
       <view class="menu__title">
         <text class="menu__title__cn">课堂报名</text>
         <text class="menu__title__en">Class registration</text>
       </view>
-      <image src="../../images/p3.png"></image>
+      <image src="{{banners2.imgurl}}"></image>
     </view>
     <view class="menu__item" data-key="appt" bindtap="goUrl">
       <view class="menu__title">
         <text class="menu__title__cn">活动预约</text>
         <text class="menu__title__en">Event reservation</text>
       </view>
-      <image src="../../images/p4.png"></image>
+      <image src="{{banners3.imgurl}}"></image>
     </view>
   </view>
   <!-- menu-list e -->

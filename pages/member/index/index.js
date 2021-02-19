@@ -3,7 +3,6 @@ var appG = require("../../../modules/appGlobal.js")
 var passport = require("../../../modules/passport.js")
 var user = require("../../../modules/userInfo.js")
 var router = require("../../../modules/router.js")
-var app = getApp()
 
 Page({
   /**
@@ -56,16 +55,6 @@ Page({
         "icon": "ticket",
         "url": ""
       }
-      // {
-      //   "name": "在线客服",
-      //   "icon": "service",
-      //   "url": ""
-      // },
-      // {
-      //   "name": "退出登录",
-      //   "icon": "loginout",
-      //   "url": ""
-      // }
     ]
   },
   /**
@@ -146,18 +135,22 @@ Page({
    * 加载微信用户信息
    */
   bindUser: function(user) {
-    if (user.nickname) {
+     
+    if (user.nickname && user.nickname != undefined) {
       this.setData({
         ['userInfo.nick_name']: user.nickname
       })
     }
+
     this.setData({
       ['userInfo.login_name']: appG.util.getHideMobile(user.login_name)
     })
 
-    this.setData({
-      ['userInfo.headimgurl']: user.headimgurl
-    })
+    if(user.headimgurl){
+      this.setData({
+        ['userInfo.headimgurl']: user.headimgurl  
+      })
+    }
 
     this.setData({
       ['userInfo.cardimgurl']: user.card_img_url

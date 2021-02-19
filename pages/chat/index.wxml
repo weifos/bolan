@@ -2,7 +2,7 @@
 <view class="page-chat">
   <view class="chat-head tac text-lightGray bg-white">
     <view class="time fz22">早上10：49</view>
-    <view class="title fz27">十点书店+为您服务</view>
+    <view class="title fz27">博览书店+为您服务</view>
   </view>
   <view class="chat-body">
     <view class="body-wrap">

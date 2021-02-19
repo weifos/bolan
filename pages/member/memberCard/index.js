@@ -18,11 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.api_106() 
-    let wxUser = user.methods.getUser()
-    this.setData({
-      ['userInfo']: wxUser
-    })
+    this.api_106()
   },
 
   /**
@@ -31,7 +27,6 @@ Page({
   api_106: function () {
     let that = this
     let userInfo = user.methods.getUser()
-    console.log("openid:" + userInfo.openid)
     api.post(api.api_106,
       api.getSign({
         OpenID: userInfo.openid
@@ -39,9 +34,10 @@ Page({
       function (app, res) {
         if (res.data.Basis.State == api.state.state_200) {
           user.methods.login(res.data.Result)
-          // router.goUrl({
-          //   url: '../index/index'
-          // })
+          let wxUser = user.methods.getUser()
+          that.setData({
+            ['userInfo']: wxUser
+          })
         } else {
           wx.showToast({
             title: res.data.Basis.Msg,

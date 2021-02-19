@@ -4,7 +4,7 @@
     <image src="{{userInfo.card_img_url}}"></image>
     <view class="card__text text-white">
       <view class="card__name">
-        十点书店会员卡
+        博览书店会员卡
       </view>
       <view class="card__level">
         <view>
@@ -19,7 +19,7 @@
   <view class="member-card-content">
     <view class="tit">会员权益</view>
     <view class="con">
-      <image src="http://res.sdibook.com/DefaultRes/Images/quanyi.jpeg" style="height:850px;"></image>
+      <image src="http://res.blbook.cn/DefaultRes/Images/quanyi.jpeg" style="height:850px;"></image>
     </view>
   </view>
 </view>
