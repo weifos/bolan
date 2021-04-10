@@ -45,6 +45,8 @@
   z-index: 99;
   box-shadow: 0rpx 0rpx 1rpx 1rpx rgba(0, 0, 0, 0.2) inset;
   background-color: #fff;
+  overflow-y: scroll;
+  height: 500rpx;
 }
 
 .option {

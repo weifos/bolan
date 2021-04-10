@@ -15,6 +15,7 @@ Page({
     tname: '',
     payType: 0,
     balance: 0,
+    isPaying: false,
     orderInfo: {
       serial_no: "",
       user_coupon_id: 0,
@@ -38,7 +39,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(opt) {
+  onLoad: function (opt) {
 
     //优惠券
     if (opt.cid != undefined && opt.cname != undefined && opt.tname != undefined) {
@@ -66,11 +67,11 @@ Page({
       url: '../member/ticketList/index?s=1&m=2&sn=' + this.data.orderInfo.serial_no + '&amount=' + this.data.orderInfo.total_amount
     })
   },
- 
+
   /**
    * 选择支付方式
    */
-  checkedPay: function(e) {
+  checkedPay: function (e) {
     this.setData({
       payType: e.currentTarget.dataset.id
     })
@@ -88,7 +89,7 @@ Page({
         OrderNo: no,
         StoreID: store.store_id
       }),
-      function(vue, res) {
+      function (vue, res) {
         if (res.data.Basis.State == api.state.state_200) {
 
           //订单信息
@@ -100,7 +101,7 @@ Page({
           that.setData({
             balance: res.data.Result.user.balance
           })
- 
+
           let disAmount = 0
           let actual_amount = res.data.Result.order.actual_amount
           let total_amount = res.data.Result.order.total_amount
@@ -139,28 +140,45 @@ Page({
    */
   api_336() {
     let that = this
-    api.post(api.api_336,
-      api.getSign({
-        UserCouponId: that.data.cid,
-        No: that.data.orderInfo.serial_no,
-        StoreID: that.data.orderInfo.store_id
-      }),
-      function(vue, res) {
-        if (res.data.Basis.State == api.state.state_200) {
-          setTimeout(function() {
-            router.goUrl({
-              url: '../member/orderList/index'
+
+    //是否支付中
+    if (!that.data.isPaying) {
+      //设置支付中状态
+      this.setData({ isPaying: true })
+      api.post(api.api_336,
+        api.getSign({
+          UserCouponId: that.data.cid,
+          No: that.data.orderInfo.serial_no,
+          StoreID: that.data.orderInfo.store_id
+        }),
+        function (vue, res) {
+          if (res.data.Basis.State == api.state.state_200) {
+            wx.showToast({
+              title: '支付成功',
+              icon: 'succes',
+              duration: 1000,
+              mask: true
             })
+            setTimeout(function () {
+              router.goUrl({
+                url: '../member/orderList/index'
+              })
+            }, 1000)
+          } else {
+            wx.showToast({
+              title: res.data.Basis.Msg,
+              icon: 'none',
+              duration: 3000
+            })
+          }
+
+          setTimeout(function () {
+            this.setData({ isPaying: false })
           }, 1000)
-        } else {
-          wx.showToast({
-            title: res.data.Basis.Msg,
-            icon: 'none',
-            duration: 3000
-          })
+          
         }
-      }
-    )
+      )
+    }
   },
 
 
@@ -216,7 +234,7 @@ Page({
   /**
    * 立即支付
    */
-  goPay: function() {
+  goPay: function () {
     let that = this
 
     //电子钱包支付
@@ -230,28 +248,28 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     console.log("按了返回")
     //跳转地址 
     router.goUrl({
@@ -262,21 +280,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

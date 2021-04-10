@@ -4,9 +4,12 @@ import router from './router'
 import md5 from './md5'
 
 // 测试环境 
-// let domain = "http://bl.api.blbook.cn/"
-// let res_domain = "http://bl.res.blbook.cn/"
+// let domain = "http://test.api.blbook.cn/"
+// let res_domain = "http://test.res.blbook.cn/"
 // 正式环境
+// let domain = "https://api.blbook.cn/"
+// let res_domain = "http://res.blbook.cn/"
+// 本机环境
 let domain = "https://api.blbook.cn/"
 let res_domain = "http://res.blbook.cn/"
 
@@ -213,10 +216,7 @@ module.exports = {
     },
     //请求对象
     post(url, data, cb, ch) {
-        // wx.showLoading({
-        //   title: '请求中',
-        //   mask: true
-        // })
+        wx.showLoading({ title: '请求中', mask: true })
         wx.request({
             url: url,
             data: data,
