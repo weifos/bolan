@@ -23,10 +23,13 @@
           <view class="item-txt">
             <view class="item-name">
               {{item.name}}
+            </view>            
+            <view class="item-name" style="font-size:20rpx; overflow:hidden;height: 50rpx;" >
+              {{item.introduction}}
             </view>
-            <view class="item-star">
+            <!-- <view class="item-star">
               <i-star number="{{item.star}}"></i-star>
-            </view>
+            </view> -->
             <view class="item-price">
               <text>￥</text>{{item.sale_price}}
             </view>

@@ -130,7 +130,7 @@ Component({
       this.data.pResult.specValues.filter(val => val.specname_id == spec_name_id).map(function(obj, index) {
         obj.checked = false
         obj.is_enable = false
-
+ 
         //在sku集合里面获取首行可点的规格
         skus.forEach(function(item, index) {
           if (item.stock <= 0) {
@@ -157,7 +157,7 @@ Component({
           }
 
           item.specset.split(',').forEach(function(o, i) {
-            if (pass && o.split('_')[0] == spec_name_id && obj.specname_id + "_" + obj.id == o) {
+            if (pass && o.split('_')[0] == spec_name_id && obj.specname_id + "_" + obj.id == o && item.is_enable && !item.is_delete) {
               obj.is_enable = true
               return
             }

@@ -21,6 +21,9 @@
   </view>
   <view class="order__remark">
     <view class="cu-form-group align-start">
+      <view class="title" style="color:red;" >提醒：按住商品左滑删除</view>
+    </view>
+    <view class="cu-form-group align-start">
       <view class="title">备注：</view>
       <textarea maxlength="300" disabled="{{modalName!=null}}" value="{{remarks}}" bindinput="textAreaBInput"></textarea>
     </view>

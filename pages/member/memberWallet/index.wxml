@@ -49,6 +49,9 @@
             <view class="other-price-view text-lightBlue">
               <input maxlength="9" placeholder="其它金额" value='{{amount}}' bindinput="bindAmountInput" type="String" bindtap="selectInput" placeholder-class="placeholder" class="input-other" style="{{checkIndex==tabData[0].list.length?'border: 2rpx solid red;':''}}"></input>元
             </view>
+            <view class="other-price-view text-lightBlue">
+              <view style="color:red;">提示：选择金额充值才有优惠券</view>
+            </view>
             <view class="btns-bar tac">
               <button class="cu-btn round bg-lightBlue text-white fz33" bindtap="goRecharge">去充值</button>
             </view>

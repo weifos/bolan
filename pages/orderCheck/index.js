@@ -144,7 +144,7 @@ Page({
     //是否支付中
     if (!that.data.isPaying) {
       //设置支付中状态
-      this.setData({ isPaying: true })
+      that.setData({ isPaying: true })
       api.post(api.api_336,
         api.getSign({
           UserCouponId: that.data.cid,
@@ -173,7 +173,7 @@ Page({
           }
 
           setTimeout(function () {
-            this.setData({ isPaying: false })
+            that.setData({ isPaying: false })
           }, 1000)
           
         }
