@@ -78,24 +78,21 @@ Page({
   /**
    * 加载课堂页数据
    */
-  api_205: function() {
+  api_205: function () {
     var that = this
     //当前选中索引
     let index = this.data.tabCur
     //当前选中项
     let curItem = this.data.courseData[index]
 
-    //是否加载中
-    let loading = curItem.loading
-    //是否加载完成
-    let loadComplete = curItem.loadComplete
-
     if (!curItem.loading && !curItem.loadComplete) {
       api.post(api.api_205, api.getSign({
         Type: 5,
         Size: that.data.pageSize,
+        //StoreID: that.data.select_id,
+        //KeyWord: that.data.keyword,
         Index: that.data.courseData[0].pageIndex
-      }), function(app, res) {
+      }), function (app, res) {
 
         if (res.data.Basis.State != api.state.state_200) {
           wx.showToast({
@@ -104,9 +101,15 @@ Page({
             duration: 3000
           })
         } else {
+
+          //门店数据
+          that.setData({
+            ['options']: res.data.Result.stores
+          })
+
           //banner数据
           if (that.data.tabCur == 0 && curItem.pageIndex == 0) {
-            res.data.Result.banners.map(function(obj, index, arr) {
+            res.data.Result.banners.map(function (obj, index, arr) {
               obj.type = "image"
               obj.url = obj.imgurl
             })
@@ -124,7 +127,7 @@ Page({
 
           curItem.loading = false
           curItem.pageIndex = curItem.pageIndex + 1
-          res.data.Result.course.forEach(function(o, i) {
+          res.data.Result.course.forEach(function (o, i) {
             o.start_date = appG.util.date.dateFormat(o.start_date, 'yyyy-MM-dd hh:mm')
             curItem.list.push(o)
           })

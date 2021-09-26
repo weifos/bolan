@@ -56,7 +56,6 @@ Page({
         } else {
           res.data.Result.expiry_sdate = appG.util.date.dateFormat(res.data.Result.expiry_sdate, 'yyyy-MM-dd hh:mm')
           res.data.Result.expiry_edate = appG.util.date.dateFormat(res.data.Result.expiry_edate, 'yyyy-MM-dd hh:mm')
-           
           that.setData({  ticketInfo: res.data.Result })
         }
       })

@@ -47,10 +47,10 @@ module.exports = {
         if (res.code) {
           let store = user.methods.getStore()
           let store_id = 0
-          if(store != null){
+          if (store != null) {
             store_id = store.store_id
           }
-           
+
           api.post(api.api_103, api.getSign({
             Code: res.code,
             StoreId: store_id
@@ -106,7 +106,7 @@ module.exports = {
               title: res.data.Basis.Msg,
               duration: 2000
             })
-          
+
             res.data.Result.register_msg.forEach(function (o, i) {
               wx.showToast({
                 title: o,
@@ -130,24 +130,25 @@ module.exports = {
   getWxUser(e, func) {
     let that = this
     var userInfo = user.methods.getUser()
-    if (e.detail.errMsg == 'getUserInfo:ok') {
+    if (e.errMsg == 'getUserProfile:ok') {
       var wxuser = {}
       wxuser.openid = userInfo.openid
-      wxuser.headimgurl = e.detail.userInfo.avatarUrl
-      wxuser.nickname = e.detail.userInfo.nickName
+      wxuser.headimgurl = e.userInfo.avatarUrl
+      wxuser.nickname = e.userInfo.nickName
       wxuser.nickname = wxuser.nickname.replace(/[^a-zA-Z0-9_\u4e00-\u9fa5|,]+/g, "*")
       //wxuser.nickname = encodeURI(wxuser.nickname)
-      wxuser.language = e.detail.userInfo.language
-      wxuser.country = e.detail.userInfo.country
-      wxuser.province = e.detail.userInfo.province
-      wxuser.city = e.detail.userInfo.city
-      wxuser.sex = e.detail.userInfo.gender
+      wxuser.language = e.userInfo.language
+      wxuser.country = e.userInfo.country
+      wxuser.province = e.userInfo.province
+      wxuser.city = e.userInfo.city
+      wxuser.sex = e.userInfo.gender
       api.post(api.api_105, api.getSign({
-          WeChatUser: wxuser
-        }),
+        WeChatUser: wxuser
+      }),
         function (app, res) {
           if (res.data.Basis.State == api.state.state_200) {
             userInfo.img = wxuser.headimgurl
+            userInfo.headimgurl = wxuser.headimgurl
             userInfo.nickname = decodeURI(wxuser.nickname)
             user.methods.login(userInfo)
             wx.showToast({
@@ -162,7 +163,7 @@ module.exports = {
               duration: 3000
             })
           }
-          func(res.data.Basis.State, e.detail.userInfo)
+          func(res.data.Basis.State, userInfo)
         })
     }
   },

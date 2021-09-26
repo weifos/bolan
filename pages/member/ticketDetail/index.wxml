@@ -19,8 +19,8 @@
     </view>
   </view>
   <view class="ticket-image-bar tac bg-white">
-    <view class="ticket-no fz27">
-      {{ticketInfo.no}}
+    <view class="ticket-no" style="font-size:36rpx;letter-spacing:10rpx;">
+      {{ticketInfo.serial_no}}
     </view>
     <view>
       <canvas canvas-id="barcode" style="height:50px; margin-left:auto; margin-right:auto; text-algin:center;"></canvas>

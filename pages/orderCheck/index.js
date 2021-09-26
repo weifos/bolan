@@ -11,6 +11,7 @@ Page({
   data: {
     appId: "",
     cid: 0,
+    cno: '',
     cname: '',
     tname: '',
     payType: 0,
@@ -43,16 +44,10 @@ Page({
 
     //优惠券
     if (opt.cid != undefined && opt.cname != undefined && opt.tname != undefined) {
-      this.setData({
-        cid: opt.cid
-      })
-      this.setData({
-        cname: opt.cname
-      })
-
-      this.setData({
-        tname: opt.tname
-      })
+      this.setData({ cid: opt.cid })
+      this.setData({ cno: opt.cno })
+      this.setData({ cname: opt.cname })
+      this.setData({ tname: opt.tname })
     }
 
     //跳转地址 
@@ -109,14 +104,25 @@ Page({
             disAmount = parseFloat(that.data.tname.replace('元'))
             res.data.Result.order.coupon_amount = disAmount
             res.data.Result.order.actual_amount = total_amount - disAmount
-          }
-
-          if (that.data.tname.indexOf('折') != -1) {
+          } else if (that.data.tname.indexOf('折') != -1) {
             disAmount = parseFloat(that.data.tname.replace('折'))
-            //res.data.Result.order.coupon_amount = actual_amount * ((10 - disAmount) / 10).toFixed(2)
-            //res.data.Result.order.actual_amount = actual_amount - res.data.Result.order.coupon_amount
             res.data.Result.order.coupon_amount = total_amount * ((10 - disAmount) / 10).toFixed(2)
             res.data.Result.order.actual_amount = total_amount - res.data.Result.order.coupon_amount
+          } else if (that.data.tname.indexOf('免费') != -1) {
+            if (res.data.Result.order.store_details.length == 1) {
+              disAmount = actual_amount
+              res.data.Result.order.coupon_amount = actual_amount
+              res.data.Result.order.actual_amount = 0
+            } else {
+              that.setData({
+                cid: 0
+              })
+              wx.showToast({
+                title: '只有单个商品才能使用免费券',
+                icon: 'none',
+                duration: 3000
+              })
+            }
           }
 
           //订单信息
@@ -174,8 +180,8 @@ Page({
 
           setTimeout(function () {
             that.setData({ isPaying: false })
-          }, 1000)
-          
+          }, 2000)
+
         }
       )
     }
@@ -188,12 +194,12 @@ Page({
   api_339() {
     let that = this
     let store = user.methods.getStore()
-
     api.post(api.api_339,
       api.getSign({
         OrderNo: that.data.orderInfo.serial_no,
         StoreID: store.store_id,
-        UserCouponId: that.data.cid
+        UserCouponId: that.data.cid,
+        UserCouponNo: that.data.cno
       }),
       function (vue, res) {
         if (res.data.Basis.State == api.state.state_200) {
@@ -213,12 +219,28 @@ Page({
               }
             },
             fail: function (res) {
-              //console.log(res)
+              router.goUrl({
+                url: '../member/orderList/index'
+              })
             },
             complete: function (res) {
               //console.log(res)
             }
           })
+
+          //免费券支付
+        } else if (res.data.Basis.State == 578) {
+          wx.showToast({
+            title: '支付成功',
+            icon: 'success',
+            duration: 2000
+          })
+
+          setTimeout(function () {
+            router.goUrl({
+              url: '../member/orderList/index'
+            })
+          }, 2000)
 
         } else {
           wx.showToast({

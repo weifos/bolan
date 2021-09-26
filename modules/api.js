@@ -2,16 +2,14 @@ import appG from './appGlobal'
 import user from './userInfo'
 import router from './router'
 import md5 from './md5'
+ 
 
-// 测试环境 
-// let domain = "http://bl.api.blbook.cn/"
-// let res_domain = "http://test.res.blbook.cn/"
-// 正式环境
+//正式环境
 let domain = "https://api.blbook.cn/"
 let res_domain = "http://res.blbook.cn/"
 // 本机环境
-// let domain = "https://api.blbook.cn/"
-// let res_domain = "http://res.blbook.cn/"
+// let domain = "http://bl.api.blbook.cn/"
+// let res_domain = "http://test.res.blbook.cn/"
 
 /// <summary> 
 /// 全局配置类

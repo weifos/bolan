@@ -28,29 +28,29 @@ Page({
     //支付时指定查看的优惠券类型
     module: -1,
     orderData: [{
-        type: -1,
-        title: "全部",
-        loading: false,
-        loadComplete: false,
-        pageIndex: 0,
-        list: []
-      },
-      {
-        type: 0,
-        title: "未使用",
-        loading: false,
-        loadComplete: false,
-        pageIndex: 0,
-        list: []
-      },
-      {
-        type: 1,
-        title: "已使用",
-        loading: false,
-        loadComplete: false,
-        pageIndex: 0,
-        list: []
-      }
+      type: -1,
+      title: "全部",
+      loading: false,
+      loadComplete: false,
+      pageIndex: 0,
+      list: []
+    },
+    {
+      type: 0,
+      title: "未使用",
+      loading: false,
+      loadComplete: false,
+      pageIndex: 0,
+      list: []
+    },
+    {
+      type: 1,
+      title: "已使用",
+      loading: false,
+      loadComplete: false,
+      pageIndex: 0,
+      list: []
+    }
     ]
   },
 
@@ -64,10 +64,10 @@ Page({
   /**
    * 加载用户优惠券数据
    */
-  api_334: function() {
+  api_334: function () {
     let that = this
     //请求接口数据
-    api.post(api.api_334, api.getSign(), function(app, res) {
+    api.post(api.api_334, api.getSign(), function (app, res) {
       if (res.data.Basis.State != api.state.state_200) {
         wx.showToast({
           title: res.data.Basis.Msg,
@@ -79,7 +79,7 @@ Page({
         let tmpAll = []
         let tmpDisUse = []
         let tmpUse = []
-        res.data.Result.forEach(function(o, i) {
+        res.data.Result.forEach(function (o, i) {
           let ele = {
             id: o.id,
             name: o.name,
@@ -143,7 +143,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(opt) {
+  onLoad: function (opt) {
 
     if (opt.s == 1) {
       this.setData({
@@ -154,7 +154,7 @@ Page({
     this.setData({
       tabCur: 1
     })
-    
+
     //流水号
     if (opt.sn != undefined) {
       this.setData({
@@ -190,14 +190,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 菜单跳转
    */
-  checkTicket: function(e) {
+  checkTicket: function (e) {
     //小程序内部选择使用
     if (this.data.isSelect) {
       //未达到金额使用条件
@@ -206,6 +206,7 @@ Page({
       let name = e.currentTarget.dataset.item.name
       let title = ''
       let type = e.currentTarget.dataset.item.type
+      let no = e.currentTarget.dataset.item.serial_no
       let discount = e.currentTarget.dataset.item.discount
 
       //1:代金券，5：折扣券
@@ -234,7 +235,7 @@ Page({
 
           //咖啡饮品
         } else if (this.data.module == 2) {
-          let param = '?no=' + this.data.serial_no + '&cid=' + id + "&cname=" + name + "&tname=" + title
+          let param = '?no=' + this.data.serial_no + '&cid=' + id + "&cname=" + name + "&tname=" + title + "&cno=" + no
           router.goUrl({
             url: '../../orderCheck/index' + param
           })
@@ -255,42 +256,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })
