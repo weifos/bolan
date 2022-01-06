@@ -33,7 +33,7 @@
 }
 .order__remark textarea{
   width:542rpx;
-  height:389rpx;
+  height:420rpx;
   border:2rpx solid #B2B2B2;
   padding: 10rpx;
 }
@@ -45,4 +45,13 @@
   background-color: #FCA68C;
   border-radius:36rpx;
   font-size: 36rpx;
+}
+.check_list{
+  font-size: 30rpx;
+  position: relative;
+  display: flex; 
+  min-height: 100rpx;
+  background-color: #ffffff;
+  justify-content: space-between;
+  align-items: center;
 }

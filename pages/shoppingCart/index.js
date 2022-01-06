@@ -11,6 +11,20 @@ Page({
   data: {
     //对应的门店信息
     store_id: 0,
+    isPickup: false,
+    //小时
+    hours: [{ id: 10, name: 10 }, { id: 11, name: 11 }, { id: 12, name: 12 }, { id: 13, name: 13 }, { id: 14, name: 14 }, { id: 15, name: 15 },
+    { id: 16, name: 16 }, { id: 17, name: 17 }, { id: 18, name: 18 }, { id: 19, name: 19 }, { id: 20, name: 20 }, { id: 21, name: 21 }],
+    //分钟
+    mins: [],
+    //下拉（小时）
+    def_h: { id: '10', name: '10' },
+    //下拉（分钟）
+    def_m: { id: '10', name: '10' },
+    //选择小时
+    select_h: '0',
+    //选择分钟
+    select_m: '0',
     //订单信息
     order: {
       store_id: 0,
@@ -81,7 +95,7 @@ Page({
     let that = this
     this.post(app_g.api.api_302, api.getSign({
       StoreID: that.data.order.store_id
-    }), function(vue, res) {
+    }), function (vue, res) {
       if (res.data.Basis.State == app_g.state.state_200) {
         that.setData({
           result: res.data.Result
@@ -117,7 +131,7 @@ Page({
     //请求接口删除
     api.post(api.api_304, api.getSign({
       CID: item.id
-    }), function(wx, res) {
+    }), function (wx, res) {
       if (res.data.Basis.State == api.state.state_200) {
         that.data.result.forEach((ele, index) => {
           if (ele.id === item.id) {
@@ -200,25 +214,32 @@ Page({
       this.checkUpdate(item)
     })
   },
-
   //提交购物车
   submit() {
-    if (!this.data.result.length) {
+    let that = this
+    if (!that.data.result.length) {
       return
     }
 
     let data = {
       IsShoppingCart: true,
-      Order: this.data.order
+      Order: that.data.order
     }
 
     //此处为桌号
     data.Order.bar_no = user.methods.getStore().bar_counter_no
 
+    if (that.data.isPickup) {
+      let h = that.data.select_h
+      let m = that.data.select_m
+      let mobile = user.methods.getUser().mobile
+      data.Order.remarks = "电话：" + mobile + "，取餐时间：" + h + '时' + m + '分，' + data.Order.remarks
+    }
+
     //处理提交失败，重复点击，会附加多条数据
     data.Order.store_details = []
     //组装商品详情数据   
-    this.data.result.forEach((item, index) => {
+    that.data.result.forEach((item, index) => {
       let detail = {
         product_id: item.product_id,
         sto_product_id: item.sto_product_id,
@@ -228,9 +249,9 @@ Page({
       }
       data.Order.store_details.push(detail)
     })
-  
+
     //提交购物车
-    api.post(api.api_314, api.getSign(data), function(th, res) {
+    api.post(api.api_314, api.getSign(data), function (th, res) {
       if (res.data.Basis.State == api.state.state_200) {
         wx.showToast({
           title: "提交成功",
@@ -250,7 +271,6 @@ Page({
       }
     })
   },
-
   /**
    * 购买数量
    */
@@ -279,16 +299,70 @@ Page({
   },
 
   /**
+   * 小时选择切换
+   */
+  change_h: function (e) {
+    let that = this
+    that.setData({
+      select_h: e.detail.id
+    })
+  },
+
+  /**
+    * 分钟选择切换
+    */
+  change_m: function (e) {
+    let that = this
+    that.setData({
+      select_m: e.detail.id
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
+    //是否到店取餐
+    let is_pick_up = user.methods.getPickUp()
+    this.setData({ 'isPickup': is_pick_up })
+
+    let mins = []
+    for (var i = 0; i < 60; i++) {
+      let m = ''
+      let m1 = ''
+
+      if (i < 10) {
+        m = '0' + i
+      } else {
+        m = i.toString()
+      }
+      m1 = i
+      mins.push({ id: m1, name: m })
+    }
+
+    this.setData({ ['mins']: mins })
+
+    let myDate = new Date()
+    let h = myDate.getHours()
+    let m = myDate.getMinutes()
+
+    let h_str = h.toString()
+    let m_str = h.toString()
+    if (h < 10) { h_str = '0' + h }
+    if (m < 10) { m_str = '0' + m }
+
+    this.setData({ ['select_h']: h })
+    this.setData({ ['select_m']: m })
+    this.setData({ ['def_h']: { id: h, name: h_str } })
+    this.setData({ ['def_m']: { id: m, name: m_str } })
+
     let store = user.methods.getStore()
     this.setData({
       ['order.store_id']: store.store_id
@@ -305,22 +379,22 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function () { },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     // let pages = getCurrentPages(); //页面栈
     // let beforePage = pages[pages.length - 2]
- 
+
     // wx.navigateTo({       //非tabBar页面的跳转
     //   url: '/' + beforePage.route,
     //   success: function () {
@@ -337,21 +411,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

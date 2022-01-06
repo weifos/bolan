@@ -33,7 +33,7 @@ module.exports = {
       var that = this;
       wx.removeStorage({
         key: 'user_info',
-        success: function(res) {
+        success: function (res) {
           that.setData({
             user: null
           })
@@ -70,7 +70,7 @@ module.exports = {
     refreshLogin(cb) {
       let $this = this
       this.post(app_g.api.api_300, this.GetSign(),
-        function(vue, res) {
+        function (vue, res) {
           if (res.data.Basis.State == app_g.state.state_200) {
             $this.login(res.data.Result)
             cb(res.data.Result)
@@ -79,6 +79,18 @@ module.exports = {
           }
         }
       )
+    },
+    /**
+     * 设置是否到店取餐
+     */
+    setPickUp(is_pick_up) {
+      wx.setStorageSync("is_pick_up", is_pick_up)
+    },
+    /**
+     * 获取是否到店取餐
+     */
+    getPickUp(is_pick_up) {
+      return Boolean(wx.getStorageSync('is_pick_up'))
     },
     /**
      * 设置门店信息
@@ -117,7 +129,7 @@ module.exports = {
       let item = wx.getStorageSync('sCartOrder')
       if (item.length) {
         return JSON.parse(item)
-      }  
+      }
       return null
     }
   },
@@ -129,7 +141,7 @@ module.exports = {
         user: userInfoData
       })
     }
- 
+
     //提交购物车
     let sCOrder = wx.getStorageSync("sCartOrder")
     if (sCOrder) {

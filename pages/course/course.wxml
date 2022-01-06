@@ -3,36 +3,56 @@
 <view class="container page-course">
   <i-greetings></i-greetings>
   <view class="swiper-banner">
-    <i-swiper itemData="{{banners}}" data-id="{{index}}"></i-swiper>
+    <i-swiper itemData="{{banners}}" data-id="{{index}}" ></i-swiper>
   </view>
 
   <!-- i-tab s -->
   <view class="i-tab2">
     <scroll-view scroll-x class="nav tab-t">
       <view class="flex text-center">
-        <view class="cu-item flex-sub {{index==tabCur?'text-lightBlue cur':''}}" wx:for="{{courseData}}" wx:key bindtap="tabSelect" data-id="{{index}}" wx:for-item="item">
+        <view class="cu-item flex-sub {{index==tabCur?'text-lightBlue cur':''}}" wx:for="{{courseData}}" wx:key="title"
+          bindtap="tabSelect" data-id="{{index}}" wx:for-item="item">
           {{item.title}}
         </view>
       </view>
     </scroll-view>
     <view class="tab-content">
       <view class="tab-c" wx:if="{{tabCur == 0}}">
+        <view style="display: flex;">
+          <view class="select_placeholder text-lightBlue">
+            <i-select id="select" style="padding-top:10rpx;width:100rpx;" defaultOption="{{def_options}}"
+              options="{{options}}" key="id" text="name" bind:change="change">
+            </i-select>
+          </view>
+          <text class="icon icon-search" bindtap='inputSearch'
+            style="background-image:url(http://res.sdibook.com/DefaultRes/Images/VUE/static/icon/icon_search.png);"></text>
+          <input type="text" placeholder="请输搜索入关键词" value="{{keyword}}" bindinput="bindInput" class="input-search"
+            maxlength="30" />
+        </view>
+
         <view class="course-list">
-          <view class="course__item" wx:key wx:for="{{courseData[0].list}}">
+          <view class="course__item" wx:key="id" wx:for="{{courseData[0].list}}">
             <view class="course__image">
               <image src="{{item.img_url}}" />
             </view>
             <view class="course__text">
               <view class="course__title ellipsis">{{item.name}}</view>
-              <view class="course__name ellipsis" style="height:38rpx;">{{item.teacher_name}}·{{item.teacher_title}}</view>
-              <view class="course__name ellipsis" style="height:38rpx;">
-                {{gFilter.cutSubString(item.intro,36)}}
+              <view class="course__name ellipsis" style="height:34rpx;">{{item.teacher_name}}·{{item.teacher_title}}
               </view>
+              <!-- <view class="course__name ellipsis" style="height:34rpx;">
+                {{gFilter.cutSubString(item.intro,36)}}
+              </view> -->
               <view wx:if="{{item.address == null || item.address == '' }}">
-                <view class="course__address ellipsis2">上课地点：{{item.store_name}}</view>
+                <!-- <view class="course__address ellipsis" style="height:34rpx;">上课地点：{{item.store_name}}</view> -->
+                <view class="course__address ellipsis" style="height:34rpx;">}</view>
               </view>
               <view wx:else>
-                <view class="course__address ellipsis2">上课地点：{{item.address}}</view>
+                <!-- <view class="course__address ellipsis" style="height:34rpx;">上课地点：{{item.address}}</view> -->
+                <view class="course__address ellipsis" style="height:34rpx;"></view>
+              </view>
+              <view class="course__address ellipsis" style="height:34rpx;color: #9bbaff;">非会员价：￥{{item.sale_price}},
+                <text style="color: #9bbaff;" wx:if="{{item.vip_sale_price == undefined || item.vip_sale_price == null || item.vip_sale_price ==0}}">会员价：--</text>
+                <text style="color: #9bbaff;" wx:else>会员价：{{item.vip_sale_price}}</text>
               </view>
               <view class="course__time">{{item.start_date}}</view>
               <view class="course__btns">
@@ -42,14 +62,16 @@
           </view>
         </view>
       </view>
-      <view class="tab-c" wx:if="{{tabCur == 1}}" wx:key>
+      <view class="tab-c" wx:if="{{tabCur == 1}}">
         <!-- month s -->
         <scroll-view scroll-x class="nav bg-none nav-month" scroll-with-animation scroll-left="{{scrollLeft}}">
-          <view class="cu-item {{index==tabCur2?'cur':''}}" wx:for="{{courseData[1].list}}" wx:key bindtap="tabSelect2" data-id="{{index}}">{{item.month}}</view>
+          <view class="cu-item {{index==tabCur2?'cur':''}}" wx:for="{{courseData[1].list}}" wx:key bindtap="tabSelect2"
+            data-id="{{index}}">{{item.month}}</view>
         </scroll-view>
         <!-- month e -->
         <!-- month list s -->
-        <view class="course-list course-list2" wx:key wx:for="{{courseData[1].list}}" wx:for-item="item" wx:if="{{tabCur2 == index}}">
+        <view class="course-list course-list2" wx:key="item.id" wx:for="{{courseData[1].list}}" wx:for-item="item"
+          wx:if="{{tabCur2 == index}}">
           <view class="course__item" wx:key wx:for="{{item.items}}" wx:for-item="sItem">
             <view class="course__image">
               <image src="{{sItem.img_url}}" />

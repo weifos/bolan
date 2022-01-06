@@ -2,12 +2,11 @@ import appG from './appGlobal'
 import user from './userInfo'
 import router from './router'
 import md5 from './md5'
- 
 
 //正式环境
 let domain = "https://api.blbook.cn/"
 let res_domain = "http://res.blbook.cn/"
-// 本机环境
+//本机环境
 // let domain = "http://bl.api.blbook.cn/"
 // let res_domain = "http://test.res.blbook.cn/"
 
@@ -107,6 +106,8 @@ module.exports = {
     api_317: domain + "317",
     //订单列表
     api_318: domain + "318",
+    //订单详情
+    api_319: domain + "319",
     //课程订单生成
     api_326: domain + "326",
     //微信小程序预支付订单 课程订单

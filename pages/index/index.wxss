@@ -1,67 +1,122 @@
-.banner{
+.wrap {
+  background: #fff;
+}
+
+.middle {
+  width: 640rpx;
+  height: 500rpx;
+}
+
+.banner {
   width: 100%;
-  height: 546rpx; 
+  height: 546rpx;
   border-bottom-right-radius: 55rpx;
   border-bottom-left-radius: 55rpx;
   overflow: hidden;
 }
-.banner image{
+
+.banner image {
   width: 100%;
   height: 546rpx;
 }
-.swiper-index{
+
+.swiper-index {
   height: 546rpx;
   overflow: hidden;
 }
 
-.menu__item{
-  width:700rpx;
-  height:235rpx;
+.menu__item {
+  width: 700rpx;
+  height: 235rpx;
   overflow: hidden;
-  margin:0 auto 18rpx auto;
+  margin: 0 auto 18rpx auto;
   /* background:#fff; */
   border-radius: 36rpx;
   position: relative;
 }
 
-.menu__item image{
+.menu__item image {
   width: 466rpx;
   height: 235rpx;
   position: absolute;
   right: 0;
   top: 0;
 }
-.menu__title__cn,.menu__title__en{
+
+.menu__title__cn,
+.menu__title__en {
   color: #555555;
   display: block;
   margin-left: 43rpx;
 }
-.menu__title{
+
+.menu__title {
   width: 234rpx;
   position: relative;
-  height:235rpx;
+  height: 235rpx;
   overflow: hidden;
 }
-.menu__title:before{
+
+.menu__title:before {
   position: absolute;
   width: 100%;
-  height:100%;
-  top:0rpx;
-  left:0rpx;
+  height: 100%;
+  top: 0rpx;
+  left: 0rpx;
   background-color: #fff;
   opacity: 0.7;
-  content:"";
+  content: "";
   border-radius: 36rpx 0 0 0;
 }
-.menu__title__cn{
+
+.menu__title__cn {
   font-size: 31rpx;
   padding-top: 82rpx;
   position: relative;
 }
-.menu__title__en{
+
+.menu__title__en {
   font-size: 18rpx;
   position: relative;
 }
-.menu-list{
-  margin-top:-82rpx; 
+
+.menu-list {
+  margin-top: -82rpx;
+}
+
+.pop-main {
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.pop-main .tit {
+  padding: 6rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  border-bottom: 1px solid #ccc;
+}
+
+.pop-main .select {
+  background-color: rgba(94, 154, 233, 0.664);
+}
+
+.pop-main .bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.pop-main .text {
+  font-size: 32rpx;
+  width: 40%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(7, 7, 7);
 }

@@ -1,4 +1,6 @@
 {
     "navigationBarTitleText": "博览书店",
-    "usingComponents": {}
+    "usingComponents":  {
+        "popup": "/components/Popup/index"
+      }
 }

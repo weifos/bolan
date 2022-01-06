@@ -3,7 +3,7 @@ page{
   background-color: #fff;
 }
 .activity-list{
-  margin-top: 36rpx;
+  margin-top: 6rpx;
 }
 .activity__item{
   margin: 0 0 36rpx 0;
@@ -72,5 +72,31 @@ page{
   padding: 0 20rpx;
 }
 .i-tab2 .tab-t{
+  height: 100rpx;
   border-bottom:2rpx solid #e0e0e0;
+}
+
+.select_placeholder { 
+  height: 46rpx;
+  line-height: 70rpx;
+  padding: 3rpx 0rpx 2rpx 0rpx;
+  width: 40%; 
+  vertical-align: middle; 
+  margin-right:10rpx;
+  font-size: 24rpx;
+}
+
+.icon {
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+.icon-search {
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  width: 4.267vw;
+  height: 4.267vw;
+  margin: 3.4vw 2.667vw;
+}
+.input-search{
+  height:80rpx;font-size:28rpx;
 }

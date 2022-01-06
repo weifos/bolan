@@ -1,7 +1,6 @@
 var user = require("../../../modules/userInfo.js")
 var api = require("../../../modules/api.js")
 var appG = require("../../../modules/appGlobal.js")
-var passport = require("../../../modules/passport.js")
 var router = require("../../../modules/router.js")
 import QRCode from '../../../modules/weapp-qrcode.js'
 
@@ -23,6 +22,8 @@ Page({
     options: [],
     //选择的门店ID
     select_id: -1,
+    //充值赠送的优惠券
+    select_coupons: [],
     def_options: {
       id: '-1',
       name: '请选择充值门店'
@@ -32,13 +33,13 @@ Page({
       num: 0
     },
     tabData: [{
-        title: "我的钱包",
-        list: []
-      },
-      {
-        title: "付款码",
-        list: []
-      }
+      title: "我的钱包",
+      list: []
+    },
+    {
+      title: "付款码",
+      list: []
+    }
     ]
   },
 
@@ -56,6 +57,9 @@ Page({
     this.setData({
       checkIndex: e.currentTarget.dataset.id
     })
+ 
+    let coupons = this.data.tabData[0].list[e.currentTarget.dataset.id].coupons
+    this.setData({ select_coupons: coupons })
   },
 
   /**
@@ -90,7 +94,7 @@ Page({
   /**
    * 绑定充值输入
    */
-  bindAmountInput: function(e) {
+  bindAmountInput: function (e) {
     var that = this
     that.formatNum(e)
     let value = e.detail.value
@@ -108,12 +112,10 @@ Page({
   },
 
   change(e) {
-
     //设置选择门店ID
     this.setData({
       select_id: e.detail.id
     })
-
   },
 
   /**
@@ -165,7 +167,7 @@ Page({
         StoreID: that.data.select_id,
         Amount: that.data.amount == '' ? 0 : that.data.amount
       }),
-      function(app, res) {
+      function (app, res) {
         if (res.data.Basis.State != api.state.state_200) {
           wx.showToast({
             title: res.data.Basis.Msg,
@@ -186,16 +188,16 @@ Page({
             package: res.data.Result.wechatpay.package,
             signType: res.data.Result.wechatpay.signType,
             paySign: res.data.Result.wechatpay.paySign,
-            success: function(res) {
+            success: function (res) {
               if (res.errMsg = "requestPayment:ok") {
                 that.api_332()
               }
             },
-            fail: function(res) {
+            fail: function (res) {
               console.log('fail')
               //console.log(res)
             },
-            complete: function(res) {
+            complete: function (res) {
               console.log('complete')
               //console.log(res)
               that.setData({
@@ -212,9 +214,9 @@ Page({
   /**
    * 充值明细banner
    */
-  api_208: function() {
+  api_208: function () {
     var that = this
-    api.post(api.api_208, api.getSign(), function(app, res) {
+    api.post(api.api_208, api.getSign(), function (app, res) {
       if (res.data.Basis.State == api.state.state_200) {
 
         that.setData({
@@ -232,16 +234,21 @@ Page({
   /**
    * 加载充值列表
    */
-  api_330: function() {
+  api_330: function () {
     var that = this;
-    api.post(api.api_330, api.getSign(), function(app, res) {
+    api.post(api.api_330, api.getSign(), function (app, res) {
       if (res.data.Basis.State != api.state.state_200) {
-        wx.showToast({
-          title: res.data.Basis.Msg,
-          icon: 'none',
-          duration: 3000
-        })
+        wx.showToast({ title: res.data.Basis.Msg, icon: 'none', duration: 3000 })
       } else {
+
+        res.data.Result.recharges.forEach(function (o, i) {
+          let count = 0
+          o.coupons.forEach((oo, ii) => {
+            count += parseInt(oo.count)
+          })
+          o.title = "赠" + count.toString() + "张优惠券"
+        })
+
         that.setData({
           ['tabData[0].list']: res.data.Result.recharges
         })
@@ -274,7 +281,7 @@ Page({
       api.getSign({
         ID: item.id
       }),
-      function(app, res) {
+      function (app, res) {
         if (res.data.Basis.State != api.state.state_200) {
           wx.showToast({
             title: res.data.Basis.Msg,
@@ -295,15 +302,15 @@ Page({
             package: res.data.Result.wechatpay.package,
             signType: res.data.Result.wechatpay.signType,
             paySign: res.data.Result.wechatpay.paySign,
-            success: function(res) {
+            success: function (res) {
               if (res.errMsg = "requestPayment:ok") {
                 that.api_332()
               }
             },
-            fail: function(res) {
+            fail: function (res) {
               //console.log(res)
             },
-            complete: function(res) {
+            complete: function (res) {
               //console.log(res)
             }
           })
@@ -315,11 +322,11 @@ Page({
   /**
    * 完成充值
    */
-  api_332: function() {
+  api_332: function () {
     var that = this;
     api.post(api.api_332, api.getSign({
       No: that.data.serial_no
-    }), function(app, res) {
+    }), function (app, res) {
       if (res.data.Basis.State != api.state.state_200) {
         wx.showToast({
           title: res.data.Basis.Msg,
@@ -341,7 +348,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(opt) {
+  onLoad: function (opt) {
     //优惠券
     // let cid = 0
     // if (opt.cid != undefined) {
@@ -364,11 +371,11 @@ Page({
   /**
    * 开始计时器
    */
-  startSetInter: function() {
+  startSetInter: function () {
     let that = this;
     //将计时器赋值给setInter
     that.data.setInter = setInterval(
-      function() {
+      function () {
         let numVal = that.data.timer.num + 1
         if (numVal > 30) {
           numVal = 0;
@@ -383,7 +390,7 @@ Page({
   /**
    * 开始计时器
    */
-  endSetInter: function() {
+  endSetInter: function () {
     let that = this;
     //清除计时器  即清除setInter
     clearInterval(that.data.setInter)
@@ -414,49 +421,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

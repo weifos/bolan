@@ -22,7 +22,7 @@ Page({
         store_id: opt.store_id,
         bar_counter_id: opt.bar_counter_id
       }
-      
+      user.methods.setPickUp(false)
       this.api_204(result)
     }
      

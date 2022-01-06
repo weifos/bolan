@@ -67,6 +67,7 @@ Component({
             // 调起扫码
             wx.scanCode({
               success(res) {
+                user.methods.setPickUp(false)
                 let store_id = appG.util.getUrlParam(res.path, "store_id")
                 let bar_counter_id = appG.util.getUrlParam(res.path, "bar_counter_id")
                 that.api_204({
@@ -96,9 +97,7 @@ Component({
           })
         } else {
           //设置扫码门店信息
-          user.methods.setStore(res.data.Result)
-
-
+          user.methods.setStore(res.data.Result) 
           router.goUrl({
             url: '/pages/coffee/coffee?store_id=' + res.data.Result.store_id + "&bar_counter_id=" + res.data.Result.bar_counter_id+"&scan=1"
           })

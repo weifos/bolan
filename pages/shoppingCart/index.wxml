@@ -2,7 +2,9 @@
 
 <view class="container page-orderList" wx:if="{{result.length > 0}}">
   <view class="order-list cu-list menu-avatar">
-    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{result}}" wx:key="key" wx:for-item="item" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+    <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{result}}" wx:key="key"
+      wx:for-item="item" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd"
+      data-target="move-box-{{index}}">
       <view class="content">
         <view class="order__name fz33">{{item.product_name}} {{item.spec_msg}}</view>
         <view class="order__price fz33">￥{{item.product_price}}</view>
@@ -10,7 +12,8 @@
       <view class="action">
         <view class="van-stepper custom-class">
           <view class="minus-class dib vam" bindtap="sub" data-item="{{item}}">-</view>
-          <input class="input-class dib vam" maxlength="2" value="{{item.count}}" data-index="{{index}}" data-item="{{item}}" type="{{number}}" bindinput="onInput" />
+          <input class="input-class dib vam" maxlength="2" value="{{item.count}}" data-index="{{index}}"
+            data-item="{{item}}" type="{{number}}" bindinput="onInput" />
           <view class="plus-class dib vam" bindtap="add" data-item="{{item}}">+</view>
         </view>
       </view>
@@ -21,11 +24,23 @@
   </view>
   <view class="order__remark">
     <view class="cu-form-group align-start">
-      <view class="title" style="color:red;" >提醒：按住商品左滑删除</view>
+      <view class="title" style="color:red;">提醒：按住商品左滑删除</view>
+    </view>
+    <view class="cu-form-group align-start" wx:if="{{isPickup}}">
+      <view class="check_list">
+        <checkbox value="cb" checked="true" style="transform: scale(0.6,0.6)" />到店自提 取餐时间：
+        <i-select id="select" style="padding-top:10rpx;width:100rpx;" defaultOption="{{def_h}}" options="{{hours}}"
+          key="id" text="name" bind:change="change_h">
+        </i-select>
+        <i-select id="select" style="padding-top:10rpx;width:100rpx;" defaultOption="{{def_m}}" options="{{mins}}"
+          key="id" text="name" bind:change="change_m">
+        </i-select>
+      </view>
     </view>
     <view class="cu-form-group align-start">
       <view class="title">备注：</view>
-      <textarea maxlength="300" disabled="{{modalName!=null}}" value="{{remarks}}" bindinput="textAreaBInput"></textarea>
+      <textarea maxlength="300" disabled="{{modalName!=null}}" value="{{remarks}}"
+        bindinput="textAreaBInput"></textarea>
     </view>
   </view>
 </view>
@@ -43,6 +58,6 @@
     <view class="bg-darkGray info">共计￥ {{gFilter.formaToMoney(totalPrice,2)}}
       <!-- <text class="discounts">|  优惠6元</text> -->
     </view>
-    <view class="submit text-white {{result.length==0?'bg-gray':'bg-lightYellow'}}" bindtap="submit">去结算</view>
+    <view class="submit text-white {{result.length==0?'bg-gray':'bg-lightYellow'}}" bindtap="submit">提交订单</view>
   </view>
 </view>

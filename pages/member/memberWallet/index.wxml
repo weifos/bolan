@@ -6,7 +6,8 @@
     <view class="f-wrap" wx:if="{{1==2}}">
       <scroll-view scroll-x class="bg-white nav text-center tab-t">
         <view class="flex text-center">
-          <view class="cu-item flex-sub {{index==TabCur?'bg-lightBlue cur':''}}" wx:for="{{tabData}}" wx:key bindtap="tabSelect" data-id="{{index}}" wx:for-item="item">
+          <view class="cu-item flex-sub {{index==TabCur?'bg-lightBlue cur':''}}" wx:for="{{tabData}}" wx:key
+            bindtap="tabSelect" data-id="{{index}}" wx:for-item="item">
             {{item.title}}
           </view>
         </view>
@@ -37,17 +38,21 @@
         <view class=" sec-recharge">
           <view class="bg-wrap">
             <view class="select_placeholder text-lightBlue">
-              <i-select id="select" style="padding-top:10rpx;" defaultOption="{{def_options}}" options="{{options}}" key="id" text="name" bind:change="change">
+              <i-select id="select" style="padding-top:10rpx;" defaultOption="{{def_options}}" options="{{options}}"
+                key="id" text="name" bind:change="change">
               </i-select>
             </view>
             <view class="list-4" style="padding-top:0rpx;">
-              <view wx:for="{{tabData[0].list}}" data-id="{{index}}" bindtap="rechargeSelect" class="f-item tac {{index==checkIndex?'cur':''}}" wx:key>
+              <view wx:for="{{tabData[0].list}}" data-id="{{index}}" bindtap="rechargeSelect"
+                class="f-item tac {{index==checkIndex?'cur':''}}" wx:key>
                 <view class="text-value fz33">{{item.amount}}元</view>
                 <view class="text-discount fz22">{{item.title}}</view>
               </view>
             </view>
             <view class="other-price-view text-lightBlue">
-              <input maxlength="9" placeholder="其它金额" value='{{amount}}' bindinput="bindAmountInput" type="String" bindtap="selectInput" placeholder-class="placeholder" class="input-other" style="{{checkIndex==tabData[0].list.length?'border: 2rpx solid red;':''}}"></input>元
+              <input maxlength="9" placeholder="其它金额" value='{{amount}}' bindinput="bindAmountInput" type="String"
+                bindtap="selectInput" placeholder-class="placeholder" class="input-other"
+                style="{{checkIndex==tabData[0].list.length?'border: 2rpx solid red;':''}}"></input>元
             </view>
             <view class="other-price-view text-lightBlue">
               <view style="color:red;">提示：选择金额充值才有优惠券</view>
@@ -63,10 +68,12 @@
           </view>
         </view>
         <!-- section e -->
-
       </view>
-      <view class="tab-c bg-white" wx:if="{{TabCur == 1}}">
-        <canvas class="canvas-code" canvas-id="myQrcode" style="background:#fff;width: 200px;height: 200px;margin-left:10px;" />
+
+      <view class="tab-c bg-white" style="padding: 10rpx 10rpx 10rpx 50rpx;font-size: 24rpx;">
+        <view wx:key="id" wx:for="{{select_coupons}}" wx:for-item="item" >
+          {{item.name}}  X{{item.count}} 
+        </view>
       </view>
     </view>
   </view>

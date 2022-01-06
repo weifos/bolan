@@ -22,13 +22,12 @@ page{
 }
 .sec-recharge{
   background: #F4F4F4;
-  padding-top:30rpx; 
+  padding-top:10rpx; 
 }
 .sec-recharge .bg-wrap{
   background:#fff;
   overflow: hidden;
   border-radius:36rpx 36rpx 0px 0px;
-  height: 500px;
 }
 .i-tab{
   padding: 0;
@@ -38,7 +37,7 @@ border: 2rpx solid #9BBAFF;
 border-radius: 36rpx;
 background: #fff;
 color: #9BBAFF;
-margin: 0 29rpx 29rpx 0;
+margin: 0 20rpx 20rpx 0;
 display: inline-block;
 width: 201rpx;
 
@@ -55,7 +54,7 @@ width: 201rpx;
   height:58rpx;
 }
 .other-price-view{
-  padding: 0 43rpx 60rpx 43rpx;
+  padding: 0 23rpx 20rpx 43rpx;
   font-size: 28rpx;
 }
 .other-price-view .input-other{
